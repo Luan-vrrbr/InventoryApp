@@ -1,0 +1,24 @@
+package data
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "item")
+
+data class Item(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    @ColumnInfo(name = "name")
+    val itemName: String,
+    @ColumnInfo(name = "price")
+    val itemPrice: Double,
+    @ColumnInfo(name = "quantity")
+    val quantityInStock: Int
+
+)
+
+
+// Example data class with 2 properties.
+data class User(val first_name: String, val last_name: String){
+}

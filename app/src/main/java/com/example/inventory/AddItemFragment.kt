@@ -15,6 +15,7 @@
  */
 package com.example.inventory
 
+import InventoryApplication
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,13 +23,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.databinding.FragmentAddItemBinding
+import data.Item
 
 /**
  * Fragment to add or update an item in the Inventory database.
  */
 class AddItemFragment : Fragment() {
+    private fun isEntryValid(): Boolean {
+        return viewModel.isEntryValid(
+            binding.itemName.text.toString(),
+            binding.itemPrice.text.toString(),
+            binding.itemCount.text.toString()
+        )
+
+    }
+
+    private fun addNewItem() {
+        if (isEntryValid()) {
+        }
+    }
+
+
+    private val viewModel: InventoryViewModel by activityViewModels {
+        InventoryViewModelFactory(
+            (activity?.application as InventoryApplication).database
+                .itemDao()
+        )
+    }
+
+    lateinit var item: Item
+
+
+
 
     private val navigationArgs: ItemDetailFragmentArgs by navArgs()
 
@@ -46,6 +75,9 @@ class AddItemFragment : Fragment() {
         _binding = FragmentAddItemBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
+
 
     /**
      * Called before fragment is destroyed.
